@@ -6,7 +6,6 @@ public class optimisateur {
 
     private int binSize = 150;
 
-
     private LinkedList<Item> listItems;
     private LinkedList<Bin> listBins;
 
@@ -31,5 +30,14 @@ public class optimisateur {
 
     public void setBinSize(int binSize) {
         this.binSize = binSize;
+    }
+
+    @Override
+    public String toString() {
+        return "optimisateur{" +
+                "binSize=" + binSize +
+                ", listItems=" + listItems +
+                ", listBins=" + listBins +
+                '}';
     }
 }

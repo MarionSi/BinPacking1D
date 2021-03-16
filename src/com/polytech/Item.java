@@ -10,4 +10,12 @@ public class Item {
         this.size = size;
         placed = false;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "size=" + size +
+                ", placed=" + placed +
+                '}';
+    }
 }
