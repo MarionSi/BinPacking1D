@@ -17,7 +17,14 @@ public class Main {
         for (String file : filesName) {
             optimisateur optimisateur = Reader.readFileAsOptimisateur(file);
             System.out.println(file + " -> borneInf = " + optimisateur.getBorneInf());
+
+            optimisateur.FirstFitDecreasing();
         }
+
+//        optimisateur optimisateur = Reader.readFileAsOptimisateur(fileName0);
+//        System.out.println("borneInf = " + optimisateur.getBorneInf());
+//        optimisateur.FirstFitDecreasing();
+
 
 
 

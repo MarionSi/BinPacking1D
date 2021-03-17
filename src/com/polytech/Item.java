@@ -3,8 +3,8 @@ package com.polytech;
 public class Item {
 
     private int size;
-
     private boolean placed;
+    private Bin bin = null;
 
     public Item(int size) {
         this.size = size;
@@ -13,6 +13,11 @@ public class Item {
 
     public int getSize() {
         return size;
+    }
+
+    public void placedInBin(Bin bin) {
+        placed = true;
+        this.bin = bin;
     }
 
     @Override
