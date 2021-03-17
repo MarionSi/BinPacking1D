@@ -13,17 +13,14 @@ public class Reader {
         try {
             String line = "";
             BufferedReader br = new BufferedReader(new FileReader(filename));
-//            line = br.readLine();
             line = br.readLine();
-            optimisateur.setBinSize(Integer.parseInt(line.split(" ")[1]));
+            optimisateur.setBinSize(Integer.parseInt(line.split(" ")[0]));
 
             while ((line = br.readLine()) != null)
             {
-                System.out.println(line);
                 optimisateur.addItem(new Item(Integer.parseInt(line)));
             }
 
-            System.out.println(optimisateur.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

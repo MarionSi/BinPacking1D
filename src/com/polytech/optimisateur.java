@@ -32,6 +32,17 @@ public class optimisateur {
         this.binSize = binSize;
     }
 
+    public int getBorneInf() {
+
+        int sommeObjets = 0;
+
+        for (Item item : listItems) {
+            sommeObjets += item.getSize();
+        }
+
+        return (int) Math.ceil((float) sommeObjets / (float) binSize);
+    }
+
     @Override
     public String toString() {
         return "optimisateur{" +

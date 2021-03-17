@@ -11,6 +11,10 @@ public class Item {
         placed = false;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
