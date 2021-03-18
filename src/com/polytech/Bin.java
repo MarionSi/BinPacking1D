@@ -16,9 +16,6 @@ public class Bin {
     }
 
     public boolean addItem(Item item) {
-//
-//        System.out.println("Tentative de placer un item de taille " + item.getSize() + " dans une bin avec comme" +
-//                "place restante " + emptySize);
 
         if (item.getSize() <= emptySize) {
             listItems.add(item);
@@ -29,6 +26,14 @@ public class Bin {
             return false;
         }
 
+    }
+
+    public LinkedList<Item> getListItems() {
+        return listItems;
+    }
+
+    public int getEmptySize() {
+        return emptySize;
     }
 
     @Override

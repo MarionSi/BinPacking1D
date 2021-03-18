@@ -1,4 +1,6 @@
-package com.polytech;
+package com.polytech.Comparator;
+
+import com.polytech.Item;
 
 import java.util.Comparator;
 

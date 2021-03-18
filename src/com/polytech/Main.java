@@ -1,5 +1,7 @@
 package com.polytech;
 
+import com.polytech.utils.Reader;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -7,7 +9,8 @@ public class Main {
 
     private final static String fileName0 = "rsc/binpack1d_00.txt";
     private final static String ROOT_RSC = "rsc/";
-    private static ArrayList<String> filesName = new ArrayList<>();
+//    private final static String ROOT_RSC = "";
+    private static ArrayList<String> filesName;
 
 
     public static void main(String[] args) {
@@ -27,12 +30,20 @@ public class Main {
 
     private static void fillFileList() {
 
+        filesName = new ArrayList<>();
+
         File[] files = new File(ROOT_RSC).listFiles();
 
-        for (File file : files) {
-            if (file.isFile()) {
-                filesName.add(ROOT_RSC+file.getName());
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    filesName.add(ROOT_RSC+file.getName());
+                }
             }
+        }
+        else
+        {
+            System.err.println("Ressources files not found");
         }
     }
 }

@@ -20,6 +20,10 @@ public class Item {
         this.bin = bin;
     }
 
+    public boolean isPlaced() {
+        return placed;
+    }
+
     @Override
     public String toString() {
         return "Item{" +

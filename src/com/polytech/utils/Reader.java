@@ -1,4 +1,7 @@
-package com.polytech;
+package com.polytech.utils;
+
+import com.polytech.Item;
+import com.polytech.optimisateur;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,12 +17,13 @@ public class Reader {
             String line = "";
             BufferedReader br = new BufferedReader(new FileReader(filename));
             line = br.readLine();
-            optimisateur.setBinSize(Integer.parseInt(line.split(" ")[0]));
 
             while ((line = br.readLine()) != null)
             {
                 optimisateur.addItem(new Item(Integer.parseInt(line)));
             }
+
+            br.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
