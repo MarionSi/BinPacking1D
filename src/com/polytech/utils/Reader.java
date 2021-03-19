@@ -17,6 +17,7 @@ public class Reader {
             String line = "";
             BufferedReader br = new BufferedReader(new FileReader(filename));
             line = br.readLine();
+            optimisateur.setBinSize(Integer.parseInt(line.split(" ")[0]));
 
             while ((line = br.readLine()) != null)
             {
