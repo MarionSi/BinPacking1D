@@ -7,6 +7,7 @@ import java.util.*;
 public class Solution {
 
     private int nbBins;
+    
     private LinkedList<Bin> listBin;
 
     public Solution() {
