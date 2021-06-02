@@ -1,5 +1,6 @@
 package com.polytech;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Bin {
@@ -39,6 +40,37 @@ public class Bin {
     public void removeItem(Item item) {
         listItems.remove(item);
         emptySize += item.getSize();
+    }
+
+    public boolean isEmpty(){
+        return fullSize == emptySize;
+    }
+
+    public int getFullSize() {
+        return fullSize;
+    }
+
+    public void setListItems(LinkedList<Item> listItems) {
+        this.listItems = listItems;
+    }
+
+    public void setFullSize(int fullSize) {
+        this.fullSize = fullSize;
+    }
+
+    public void setEmptySize(int emptySize) {
+        this.emptySize = emptySize;
+    }
+
+
+    @Override
+    protected Bin clone() {
+        Bin bin = new Bin(fullSize);
+        bin.setEmptySize(getEmptySize());
+        bin.setFullSize(getFullSize());
+        bin.setListItems((LinkedList<Item>) getListItems().clone());
+
+        return bin;
     }
 
     @Override

@@ -33,6 +33,11 @@ public class Solution {
         return listSolutions.get(0);
     }
 
+    public void addBin(Bin bin) {
+        nbBins ++;
+        listBin.add(bin);
+    }
+
     public Solution getNeighbour() {
         try {
             return switchTwoItems();
@@ -42,10 +47,9 @@ public class Solution {
         return null;
     }
 
-    private Solution switchTwoItems() {
+    public Solution switchTwoItems() throws CloneNotSupportedException {
 
-        System.out.println("Bins avant le switch : ");
-        System.out.println(fullSolution());
+        Solution toReturn = this.clone();
 
         if (nbBins > 1) {
 
@@ -56,23 +60,20 @@ public class Solution {
             for (int i = 0; i < MAX_SEARCH_NEIGHBOUR_ITERATION; i++) {
 
                 //Choose the first bin for the item switch
-                int indexBin1 = random.nextInt(listBin.size());
-                Bin bin1 = listBin.get(indexBin1);
+                int indexBin1 = random.nextInt(toReturn.getListBin().size());
+                Bin bin1 = toReturn.getListBin().get(indexBin1);
 
                 int indexBin2;
 
                 //Choose a second bin
                 do {
-                    indexBin2 = random.nextInt(listBin.size());
+                    indexBin2 = random.nextInt(toReturn.getListBin().size());
                 } while (indexBin2 == indexBin1);
 
-                Bin bin2 = listBin.get(indexBin2);
-
-                System.out.println("Index 1 : " + indexBin1);
-                System.out.println("Index 2 : " + indexBin2);
+                Bin bin2 = toReturn.getListBin().get(indexBin2);
 
                 //Choose an item to switch in the first bin
-                int indexItem1 = random.nextInt(listBin.get(indexBin1).getListItems().size());
+                int indexItem1 = random.nextInt(toReturn.getListBin().get(indexBin1).getListItems().size());
                 Item item1 = bin1.getListItems().get(indexItem1);
 
                 //Try to put it in the second bin
@@ -89,54 +90,42 @@ public class Solution {
                         bin1.addItem(item2);
                         bin2.addItem(item1);
 
-                        System.out.println("Bins après le switch : ");
-                        System.out.println(fullSolution());
-
                         return this;
                     }
-//
+
                 }
 
             }
 
+            //If no switch is possible, put a random item in a new bin
+            int indexBin = random.nextInt(toReturn.getListBin().size());
+            Bin bin = toReturn.getListBin().get(indexBin);
+            int indexItem = random.nextInt(bin.getListItems().size());
+            Item itemToMove = bin.getListItems().get(indexItem);
 
-//            LinkedList<Bin> shuffledBinList = (LinkedList<Bin>) getListBin().clone();
-//            Collections.shuffle(shuffledBinList);
-//
-//            for (Bin bin1 : shuffledBinList) {
-//                for (Bin bin2 : shuffledBinList) {
-//                    if (!bin1.equals(bin2)) {
-//
-//                        LinkedList<Item> itemLinkedListBin1 = bin1.getListItems();
-//                        Collections.shuffle(itemLinkedListBin1);
-//
-//                        for (Item item1 : itemLinkedListBin1) {
-//                            for (Item item2 : bin2.getListItems()) {
-//                                if (item1.getSize() >= item2.getSize() + bin2.getEmptySize()) {
-//                                    System.out.println("contains " + bin1.getListItems().contains(item1));
-//
-//                                    bin1.removeItem(item1);
-//                                    bin2.removeItem(item2);
-//
-//                                    bin1.addItem(item2);
-//                                    bin2.addItem(item1);
-//
-//                                    return this;
-//                                }
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            }
+            bin.removeItem(itemToMove);
+
+            Bin newBin = new Bin(bin.getFullSize());
+            newBin.addItem(itemToMove);
+
+            toReturn.addBin(newBin);
+
+            //Check if the first bin is now empty
+            if (bin.isEmpty()) {
+                toReturn.removeBin(bin);
+            }
         }
 
-        return this;
+        return toReturn;
     }
 
+    private void removeBin(Bin bin) {
+        listBin.remove(bin);
+        nbBins --;
+    }
 
     public int getNbBins() {
-        return nbBins;
+        return listBin.size();
     }
 
     public void setNbBins(int nbBins) {
@@ -162,8 +151,19 @@ public class Solution {
         return toReturn;
     }
 
+    private void setListBin(ArrayList<Bin> listBin) {
+        this.listBin = listBin;
+    }
+
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    protected Solution clone() throws CloneNotSupportedException {
+
+        Solution solution = new Solution();
+
+        for (Bin bin : getListBin()) {
+            solution.addBin(bin.clone());
+        }
+
+        return solution;
     }
 }
