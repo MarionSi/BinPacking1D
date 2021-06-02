@@ -13,6 +13,11 @@ public class optimisateur {
         listItems = new LinkedList<>();
     }
 
+    public optimisateur(int binSize) {
+        listItems = new LinkedList<>();
+        this.binSize = binSize;
+    }
+
     /**
      * Method used to get the lower bound  (?)
      * @return

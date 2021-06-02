@@ -36,6 +36,11 @@ public class Bin {
         return emptySize;
     }
 
+    public void removeItem(Item item) {
+        listItems.remove(item);
+        emptySize += item.getSize();
+    }
+
     @Override
     public String toString() {
         return "Bin{" +

@@ -5,6 +5,7 @@ import com.polytech.Item;
 import com.polytech.Comparator.ItemComparator;
 import com.polytech.Solution;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -27,7 +28,7 @@ public class FirstFitDecreasing implements Algorithm {
         LinkedList<Item> listItemsSorted = (LinkedList<Item>) listItems.clone();
         Collections.sort(listItemsSorted, new ItemComparator());
 
-        LinkedList<Bin> listBins = new LinkedList<>();
+        ArrayList<Bin> listBins = new ArrayList<>();
 
 
         for (Item item : listItemsSorted)

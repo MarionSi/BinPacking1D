@@ -1,3 +1,5 @@
+import com.polytech.Bin;
+import com.polytech.Item;
 import com.polytech.Solution;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -55,10 +57,52 @@ class SolutionTest {
         }
     }
 
+    @Nested
+    class getNeighbour {
+
+        @Test
+        void shouldReturnNeighbourOfTheSolution() {
+            //Given
+            Solution solution = createFakeSolutionWithItems();
+
+            //Item that should be exchange
+            Item itemBin2 = solution.getListBin().get(1).getListItems().get(1);
+
+            //When
+            Solution neighbour = solution.getNeighbour();
+
+            //Then
+            assertEquals(itemBin2.getSize(), 1);
+//            assertNotEquals(solution.getListBin(), neighbour.getListBin());
+            assertEquals(true, neighbour.getListBin().get(2).getListItems().contains(itemBin2));
+        }
+
+    }
 
     private Solution createFakeSolution(int nbBins) {
         Solution solution = new Solution();
         solution.setNbBins(nbBins);
+        return solution;
+    }
+
+    private Solution createFakeSolutionWithItems()
+    {
+        Solution solution = createFakeSolution(3);
+        Bin bin1 = new Bin(3);
+        Bin bin2 = new Bin(3);
+        Bin bin3 = new Bin(3);
+
+        bin1.addItem(new Item(3));
+        bin2.addItem(new Item(2));
+        bin2.addItem(new Item(1));
+        bin3.addItem(new Item(1));
+        bin3.addItem(new Item(1));
+        bin3.addItem(new Item(1));
+
+        solution.getListBin().add(bin1);
+        solution.getListBin().add(bin2);
+        solution.getListBin().add(bin3);
+
         return solution;
     }
 
