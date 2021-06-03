@@ -223,4 +223,19 @@ public class Solution {
 
         return solution;
     }
+
+    public Integer calculateFitness() {
+        int result = 0;
+        int binAddition = 0;
+        for (Bin bin: listBin
+        ) {
+            for (Item item: bin.getListItems()
+            ) {
+                binAddition = binAddition + item.getSize();
+            }
+            result = result + (binAddition * binAddition);
+            binAddition = 0;
+        }
+        return result;
+    }
 }
