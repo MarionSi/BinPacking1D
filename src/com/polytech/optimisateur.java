@@ -1,6 +1,8 @@
 package com.polytech;
 
 import com.polytech.algorithm.FirstFitDecreasing;
+import com.polytech.algorithm.Question4.FirstFit;
+import com.polytech.algorithm.Question4.OneBinPerItem;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,6 +47,16 @@ public class optimisateur {
     public Solution generateSolutionFromFirstFitDecreasingAlgorithm() {
         FirstFitDecreasing firstFitDecreasingAlgorithm = new FirstFitDecreasing();
         return firstFitDecreasingAlgorithm.generateSolution(listItems, binSize);
+    }
+
+    public Solution generateSolutionFromOneBinPerItem() {
+        OneBinPerItem oneBinPerItemAlgorithm = new OneBinPerItem();
+        return oneBinPerItemAlgorithm.generateSolution(listItems, binSize);
+    }
+
+    public Solution generateSolutionFromFirstFitAlgorithm() {
+        FirstFit firstFitAlgorithm = new FirstFit();
+        return firstFitAlgorithm.generateSolution(listItems, binSize);
     }
 
     public void printDetails() {

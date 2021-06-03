@@ -19,8 +19,15 @@ public class Main {
             optimisateur optimisateur = Reader.readFileAsOptimisateur(file);
             System.out.println(file);
             System.out.println("borneInf = " + optimisateur.getLowerBound());
+            
             Solution solutionFirstFitDecreasing = optimisateur.generateSolutionFromFirstFitDecreasingAlgorithm();
             System.out.println(solutionFirstFitDecreasing.toString() + "\n");
+
+            Solution solutionFromOneBinPerItem = optimisateur.generateSolutionFromOneBinPerItem();
+            System.out.println(solutionFromOneBinPerItem.toString() + "\n");
+
+            Solution solutionFirstFit = optimisateur.generateSolutionFromFirstFitAlgorithm();
+            System.out.println(solutionFirstFit.toString() + "\n");
         }
 
     }
