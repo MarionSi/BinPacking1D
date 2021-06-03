@@ -40,11 +40,59 @@ public class Solution {
 
     public Solution getNeighbour() {
         try {
+            Random random = new Random();
+            if (random.nextBoolean()) putItemInAnotherBin();
+            else switchTwoItems();
             return switchTwoItems();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public Solution putItemInAnotherBin()throws CloneNotSupportedException {
+
+        Solution toReturn = this.clone();
+
+        if (nbBins > 1) {
+
+            Random random = new Random();
+
+            //Try to switch items between two bins MAX_SEARCH_NEIGHBOUR_ITERATION times
+            //Otherwise, put the item of the first bin in a new one
+            for (int i = 0; i < MAX_SEARCH_NEIGHBOUR_ITERATION; i++) {
+
+                //Choose the first bin for the item switch
+                int indexBin1 = random.nextInt(toReturn.getListBin().size());
+                Bin bin1 = toReturn.getListBin().get(indexBin1);
+
+                int indexBin2;
+
+                //Choose a second bin
+                do {
+                    indexBin2 = random.nextInt(toReturn.getListBin().size());
+                } while (indexBin2 == indexBin1);
+
+                Bin bin2 = toReturn.getListBin().get(indexBin2);
+
+                //Choose an item to switch in the first bin
+                int indexItem1 = random.nextInt(toReturn.getListBin().get(indexBin1).getListItems().size());
+                Item item1 = bin1.getListItems().get(indexItem1);
+
+                //Check if it's possible to put the item from the bin 1 in the bin 2
+                if (item1.getSize() <= bin2.getEmptySize()) {
+                    bin1.removeItem(item1);
+                    bin2.addItem(item1);
+
+                    return toReturn;
+                }
+
+            }
+
+            return putItemInNewBin();
+        }
+
+        return toReturn;
     }
 
     public Solution switchTwoItems() throws CloneNotSupportedException {
@@ -90,30 +138,39 @@ public class Solution {
                         bin1.addItem(item2);
                         bin2.addItem(item1);
 
-                        return this;
+                        return toReturn;
                     }
 
                 }
 
             }
 
-            //If no switch is possible, put a random item in a new bin
-            int indexBin = random.nextInt(toReturn.getListBin().size());
-            Bin bin = toReturn.getListBin().get(indexBin);
-            int indexItem = random.nextInt(bin.getListItems().size());
-            Item itemToMove = bin.getListItems().get(indexItem);
+            return putItemInNewBin();
+        }
 
-            bin.removeItem(itemToMove);
+        return toReturn;
+    }
 
-            Bin newBin = new Bin(bin.getFullSize());
-            newBin.addItem(itemToMove);
+    private Solution putItemInNewBin() throws CloneNotSupportedException {
+        Random random = new Random();
+        Solution toReturn = this.clone();
 
-            toReturn.addBin(newBin);
+        //If no switch is possible, put a random item in a new bin
+        int indexBin = random.nextInt(toReturn.getListBin().size());
+        Bin bin = toReturn.getListBin().get(indexBin);
+        int indexItem = random.nextInt(bin.getListItems().size());
+        Item itemToMove = bin.getListItems().get(indexItem);
 
-            //Check if the first bin is now empty
-            if (bin.isEmpty()) {
-                toReturn.removeBin(bin);
-            }
+        bin.removeItem(itemToMove);
+
+        Bin newBin = new Bin(bin.getFullSize());
+        newBin.addItem(itemToMove);
+
+        toReturn.addBin(newBin);
+
+        //Check if the first bin is now empty
+        if (bin.isEmpty()) {
+            toReturn.removeBin(bin);
         }
 
         return toReturn;

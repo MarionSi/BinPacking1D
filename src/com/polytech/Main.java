@@ -9,7 +9,6 @@ public class Main {
 
     private final static String fileName0 = "rsc/binpack1d_00.txt";
     private final static String ROOT_RSC = "rsc/";
-//    private final static String ROOT_RSC = "";
     private static ArrayList<String> filesName;
 
 
@@ -20,7 +19,6 @@ public class Main {
             optimisateur optimisateur = Reader.readFileAsOptimisateur(file);
             System.out.println(file);
             System.out.println("borneInf = " + optimisateur.getLowerBound());
-
             Solution solutionFirstFitDecreasing = optimisateur.generateSolutionFromFirstFitDecreasingAlgorithm();
             System.out.println(solutionFirstFitDecreasing.toString() + "\n");
         }
