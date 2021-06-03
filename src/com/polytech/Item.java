@@ -24,11 +24,27 @@ public class Item {
         return placed;
     }
 
+    public void setPlaced(boolean placed) {
+        this.placed = placed;
+    }
+
+    public void setBin(Bin bin) {
+        this.bin = bin;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
                 "size=" + size +
                 ", placed=" + placed +
                 '}';
+    }
+
+    @Override
+    protected Item clone() throws CloneNotSupportedException {
+        Item clone = new Item(getSize());
+        clone.setBin(bin);
+        clone.setPlaced(placed);
+        return clone;
     }
 }

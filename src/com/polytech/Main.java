@@ -4,6 +4,7 @@ import com.polytech.utils.Reader;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
 
@@ -15,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         fillFileList();
 
-        for (String file : filesName) {
+        for (String file : Arrays.asList(fileName0)) {
             optimisateur optimisateur = Reader.readFileAsOptimisateur(file);
             System.out.println(file);
             System.out.println("borneInf = " + optimisateur.getLowerBound());

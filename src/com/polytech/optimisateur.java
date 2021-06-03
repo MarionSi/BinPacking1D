@@ -46,17 +46,17 @@ public class optimisateur {
 
     public Solution generateSolutionFromFirstFitDecreasingAlgorithm() {
         FirstFitDecreasing firstFitDecreasingAlgorithm = new FirstFitDecreasing();
-        return firstFitDecreasingAlgorithm.generateSolution(listItems, binSize);
+        return firstFitDecreasingAlgorithm.generateSolution(getClonedListOfItems(), binSize);
     }
 
     public Solution generateSolutionFromOneBinPerItem() {
         OneBinPerItem oneBinPerItemAlgorithm = new OneBinPerItem();
-        return oneBinPerItemAlgorithm.generateSolution(listItems, binSize);
+        return oneBinPerItemAlgorithm.generateSolution(getClonedListOfItems(), binSize);
     }
 
     public Solution generateSolutionFromFirstFitAlgorithm() {
         FirstFit firstFitAlgorithm = new FirstFit();
-        return firstFitAlgorithm.generateSolution(listItems, binSize);
+        return firstFitAlgorithm.generateSolution(getClonedListOfItems(), binSize);
     }
 
     public void printDetails() {
@@ -91,6 +91,16 @@ public class optimisateur {
 
     public void setBinSize(int binSize) {
         this.binSize = binSize;
+    }
+
+    public LinkedList<Item> getClonedListOfItems() {
+        LinkedList<Item> toReturn = new LinkedList<>();
+        try {
+            for (Item item : listItems) toReturn.add(item.clone());
+        } catch (Exception ex) {
+            System.err.println(ex.getStackTrace());
+        }
+        return toReturn;
     }
     //endregion
 
