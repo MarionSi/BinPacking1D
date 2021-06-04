@@ -7,6 +7,7 @@ import java.util.*;
 public class Solution {
 
     private int nbBins;
+    private int fitness;
     private ArrayList<Bin> listBin;
 
     private final int MAX_SEARCH_NEIGHBOUR_ITERATION = 10;
@@ -18,6 +19,7 @@ public class Solution {
     public Solution(ArrayList<Bin> listBin) {
         this.listBin = listBin;
         this.nbBins = (listBin==null)? 0 : listBin.size();
+        calculateFitness();
     }
 
     public static Solution getBestSolutionFromList(ArrayList<Solution> listSolutions) {
@@ -193,6 +195,10 @@ public class Solution {
         return listBin;
     }
 
+    public int getFitness() { return fitness; }
+
+    public void setFitness(int fitness) { this.fitness = fitness; }
+
     @Override
     public String toString() {
         return "Nb bins = " + nbBins;
@@ -224,7 +230,7 @@ public class Solution {
         return solution;
     }
 
-    public Integer calculateFitness() {
+    public void calculateFitness() {
         int result = 0;
         int binAddition = 0;
         for (Bin bin: listBin
@@ -236,6 +242,8 @@ public class Solution {
             result = result + (binAddition * binAddition);
             binAddition = 0;
         }
-        return result;
+        this.fitness = result;
     }
+
+
 }
