@@ -10,28 +10,34 @@ import java.util.Arrays;
 
 public class Main {
 
-    private final static String fileName0 = "rsc/binpack1d_00.txt";
+    private final static String fileName0 = "rsc/binpack1d_01.txt";
     private final static String ROOT_RSC = "rsc/";
     private static ArrayList<String> filesName;
-
+/*
     static {
         System.loadLibrary("jniortools");
     }
-
+*/
 
     public static void main(String[] args) throws CloneNotSupportedException {
         fillFileList();
         ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
         Solution solution = programmationLineaire.generateSolution(null, -1);
 
-        for (String file : filesName) {
+        for (String file : Arrays.asList(fileName0)) {
             optimisateur optimisateur = Reader.readFileAsOptimisateur(file);
             System.out.println(file);
-            System.out.println("borneInf = " + optimisateur.getLowerBound());
 
+            System.out.println("BorneInf = " + optimisateur.getLowerBound());
+
+
+            System.out.println("----------------------- RECUIT SIMULE DECREASING -----------------------\n");
             Solution meilleureSolution = optimisateur.generateSolutionFromRecuitSimule(0.6);
 
-            System.out.println("La meilleure solution c'est " + meilleureSolution.toString() +"\n");
+            System.out.println("La meilleure solution c'est " + meilleureSolution.toString() + "\n");
+
+
+
 //            Solution solutionFirstFitDecreasing = optimisateur.generateSolutionFromFirstFitDecreasingAlgorithm();
 //            System.out.println(solutionFirstFitDecreasing.toString() + "\n");
 //
@@ -40,9 +46,42 @@ public class Main {
 //
 //            Solution solutionFirstFit = optimisateur.generateSolutionFromFirstFitAlgorithm();
 //            System.out.println(solutionFirstFit.toString() + "\n");
-        }
 
+
+            //System.out.println("borneInf = " + optimisateur.getLowerBound() + "\n");
+
+            /*
+
+            System.out.println("----------------------- FIRST FIT DECREASING -----------------------\n");
+
+            Solution solutionFirstFitDecreasing = optimisateur.generateSolutionFromFirstFitDecreasingAlgorithm();
+            System.out.println("Fitness : " + solutionFirstFitDecreasing.getFitness());
+            System.out.println(solutionFirstFitDecreasing.toString() + "\n");
+
+            System.out.println("----------------------- ONE ITEM PER BIN DECREASING -----------------------\n");
+
+            Solution solutionFromOneBinPerItem = optimisateur.generateSolutionFromOneBinPerItem();
+            System.out.println("Fitness : " + solutionFromOneBinPerItem.getFitness());
+            System.out.println(solutionFromOneBinPerItem.toString() + "\n");
+
+            System.out.println("----------------------- FIRST FIT -----------------------\n");
+
+            Solution solutionFirstFit = optimisateur.generateSolutionFromFirstFitAlgorithm();
+            System.out.println("Fitness : " + solutionFirstFit.getFitness());
+            System.out.println(solutionFirstFit.toString() + "\n");
+
+             */
+
+
+            System.out.println("----------------------- TABU SEARCH -----------------------\n");
+
+            Solution solutionTabu = optimisateur.generateSolutionFromTabuSearchAlgorithm();
+            System.out.println("Fitness : " + solutionTabu.getFitness());
+            System.out.println(solutionTabu.toString() + "\n");
+            //System.out.println(solutionTabu.fullSolution() + "\n");
+        }
     }
+
 
 
     private static void fillFileList() {

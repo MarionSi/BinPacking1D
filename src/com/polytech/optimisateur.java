@@ -3,7 +3,11 @@ package com.polytech;
 import com.polytech.algorithm.FirstFitDecreasing;
 import com.polytech.algorithm.Question4.FirstFit;
 import com.polytech.algorithm.Question4.OneBinPerItem;
+
 import com.polytech.algorithm.RecuitSimule;
+
+import com.polytech.algorithm.Question7.TabuSearch;
+
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -64,9 +68,15 @@ public class optimisateur {
         return firstFitAlgorithm.generateSolution(getClonedListOfItems(), binSize);
     }
 
+
     public Solution generateSolutionFromRecuitSimule(double t0) throws CloneNotSupportedException {
         RecuitSimule recuitSimule = new RecuitSimule(t0);
         return recuitSimule.generateSolution(getClonedListOfItems(), binSize);
+    }
+    public Solution generateSolutionFromTabuSearchAlgorithm() throws CloneNotSupportedException {
+        TabuSearch tabuSearchAlgorithm = new TabuSearch();
+        return tabuSearchAlgorithm.generateSolution(listItems, binSize);
+
     }
 
     public void printDetails() {
