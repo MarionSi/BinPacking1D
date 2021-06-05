@@ -44,6 +44,10 @@ public class optimisateur {
         return (int) Math.ceil((float) sommeObjets / (float) binSize);
     }
 
+    public int getBinSize() {
+        return binSize;
+    }
+
     public Solution generateSolutionFromFirstFitDecreasingAlgorithm() {
         FirstFitDecreasing firstFitDecreasingAlgorithm = new FirstFitDecreasing();
         return firstFitDecreasingAlgorithm.generateSolution(getClonedListOfItems(), binSize);

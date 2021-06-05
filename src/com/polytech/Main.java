@@ -1,5 +1,7 @@
 package com.polytech;
 
+import com.polytech.algorithm.ProgrammationLineaire;
+import com.polytech.algorithm.RecuitSimule;
 import com.polytech.utils.Reader;
 
 import java.io.File;
@@ -12,23 +14,34 @@ public class Main {
     private final static String ROOT_RSC = "rsc/";
     private static ArrayList<String> filesName;
 
+    static {
+        System.loadLibrary("jniortools");
+    }
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws CloneNotSupportedException {
         fillFileList();
+        ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
+        Solution solution = programmationLineaire.generateSolution(null, -1);
 
         for (String file : Arrays.asList(fileName0)) {
             optimisateur optimisateur = Reader.readFileAsOptimisateur(file);
             System.out.println(file);
             System.out.println("borneInf = " + optimisateur.getLowerBound());
-            
-            Solution solutionFirstFitDecreasing = optimisateur.generateSolutionFromFirstFitDecreasingAlgorithm();
-            System.out.println(solutionFirstFitDecreasing.toString() + "\n");
 
-            Solution solutionFromOneBinPerItem = optimisateur.generateSolutionFromOneBinPerItem();
-            System.out.println(solutionFromOneBinPerItem.toString() + "\n");
+            RecuitSimule recuitSimule = new RecuitSimule(3);
+            Solution meilleureSolution = recuitSimule.generateSolution(optimisateur.getClonedListOfItems(), optimisateur.getBinSize());
 
-            Solution solutionFirstFit = optimisateur.generateSolutionFromFirstFitAlgorithm();
-            System.out.println(solutionFirstFit.toString() + "\n");
+            System.out.println("La meilleure solution c'est " + meilleureSolution.toString());
+            System.out.println(meilleureSolution.fullSolution());
+//            Solution solutionFirstFitDecreasing = optimisateur.generateSolutionFromFirstFitDecreasingAlgorithm();
+//            System.out.println(solutionFirstFitDecreasing.toString() + "\n");
+//
+//            Solution solutionFromOneBinPerItem = optimisateur.generateSolutionFromOneBinPerItem();
+//            System.out.println(solutionFromOneBinPerItem.toString() + "\n");
+//
+//            Solution solutionFirstFit = optimisateur.generateSolutionFromFirstFitAlgorithm();
+//            System.out.println(solutionFirstFit.toString() + "\n");
         }
 
     }

@@ -11,8 +11,12 @@ class ProgrammationLineaireTest {
     @Test
     void test() {
 
+//        System.loadLibrary("jniortools");
+
+
         ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
         Solution solution = programmationLineaire.generateSolution(null, -1);
     }
+
 
 }

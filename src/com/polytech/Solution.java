@@ -3,6 +3,7 @@ package com.polytech;
 import com.polytech.Comparator.SolutionComparator;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Solution {
 
@@ -43,9 +44,17 @@ public class Solution {
     public Solution getNeighbour() {
         try {
             Random random = new Random();
-            if (random.nextBoolean()) putItemInAnotherBin();
-            else switchTwoItems();
-            return switchTwoItems();
+            Solution solution;
+            if (random.nextBoolean()) {
+                solution = putItemInAnotherBin();
+            }
+            else
+            {
+                solution = switchTwoItems();
+            }
+
+            solution.checkEmptyBin();
+            return solution;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -78,6 +87,7 @@ public class Solution {
                 Bin bin2 = toReturn.getListBin().get(indexBin2);
 
                 //Choose an item to switch in the first bin
+                System.out.println("Taille liste " + toReturn.getListBin().get(indexBin1).getListItems().size());
                 int indexItem1 = random.nextInt(toReturn.getListBin().get(indexBin1).getListItems().size());
                 Item item1 = bin1.getListItems().get(indexItem1);
 
@@ -170,12 +180,17 @@ public class Solution {
 
         toReturn.addBin(newBin);
 
-        //Check if the first bin is now empty
-        if (bin.isEmpty()) {
-            toReturn.removeBin(bin);
-        }
-
         return toReturn;
+    }
+
+    private void checkEmptyBin() {
+//        for (Bin bin : listBin){
+//            if (bin.isEmpty()) {
+//                removeBin(bin);
+//            }
+//        }
+        List<Bin> emptyBin = listBin.stream().filter(bin -> bin.isEmpty()).collect(Collectors.toList());
+        listBin.removeAll(emptyBin);
     }
 
     private void removeBin(Bin bin) {
@@ -196,6 +211,12 @@ public class Solution {
     }
 
     public int getFitness() { return fitness; }
+
+    public int updateFitnessAndGet() {
+        calculateFitness();
+        return getFitness();
+    }
+
 
     public void setFitness(int fitness) { this.fitness = fitness; }
 
@@ -219,7 +240,7 @@ public class Solution {
     }
 
     @Override
-    protected Solution clone() throws CloneNotSupportedException {
+    public Solution clone() throws CloneNotSupportedException {
 
         Solution solution = new Solution();
 
@@ -242,8 +263,12 @@ public class Solution {
             result = result + (binAddition * binAddition);
             binAddition = 0;
         }
+
+        System.out.println("Nouvelle fitness " + result);
         this.fitness = result;
     }
+
+
 
 
 }

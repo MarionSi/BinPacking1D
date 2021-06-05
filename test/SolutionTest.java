@@ -126,6 +126,29 @@ class SolutionTest {
 
     }
 
+    @Nested
+    class calculateFitness {
+
+        @Test
+        void shouldReturn68() {
+
+            Bin bin1 = new Bin(10);
+            bin1.addItem(new Item(5));
+            bin1.addItem(new Item(3));
+            Bin bin2 = new Bin(10);
+            bin2.addItem(new Item(2));
+
+            Solution solution = new Solution();
+            solution.addBin(bin1);
+            solution.addBin(bin2);
+
+            Integer fitness = solution.updateFitnessAndGet();
+
+            assertEquals(68, fitness);
+
+        }
+    }
+
     private Solution createFakeSolution(int nbBins) {
         Solution solution = new Solution();
         solution.setNbBins(nbBins);
