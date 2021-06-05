@@ -24,16 +24,14 @@ public class Main {
         ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
         Solution solution = programmationLineaire.generateSolution(null, -1);
 
-        for (String file : Arrays.asList(fileName0)) {
+        for (String file : filesName) {
             optimisateur optimisateur = Reader.readFileAsOptimisateur(file);
             System.out.println(file);
             System.out.println("borneInf = " + optimisateur.getLowerBound());
 
-            RecuitSimule recuitSimule = new RecuitSimule(3);
-            Solution meilleureSolution = recuitSimule.generateSolution(optimisateur.getClonedListOfItems(), optimisateur.getBinSize());
+            Solution meilleureSolution = optimisateur.generateSolutionFromRecuitSimule(0.6);
 
-            System.out.println("La meilleure solution c'est " + meilleureSolution.toString());
-            System.out.println(meilleureSolution.fullSolution());
+            System.out.println("La meilleure solution c'est " + meilleureSolution.toString() +"\n");
 //            Solution solutionFirstFitDecreasing = optimisateur.generateSolutionFromFirstFitDecreasingAlgorithm();
 //            System.out.println(solutionFirstFitDecreasing.toString() + "\n");
 //

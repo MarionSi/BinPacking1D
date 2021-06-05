@@ -2,7 +2,6 @@ package com.polytech.algorithm;
 
 import com.polytech.Item;
 import com.polytech.Solution;
-import com.polytech.algorithm.Question4.FirstFit;
 import com.polytech.algorithm.Question4.OneBinPerItem;
 
 import java.util.LinkedList;
@@ -10,8 +9,8 @@ import java.util.Random;
 
 public class RecuitSimule implements Algorithm {
 
-    private final int n1 = 3;
-    private final int n2 = 50;
+    private final int n1 = 10;
+    private final int n2 = 1000;
     private final double mu = 0.8;
 
     private double t0;
@@ -34,7 +33,6 @@ public class RecuitSimule implements Algorithm {
                 Solution xn = xnplus1.clone();
                 Solution y = xn.getNeighbour();
                 int deltaF = fmax - y.updateFitnessAndGet();
-                System.out.println("deltaF = " + deltaF);
                 if (deltaF <= 0) {
                     xnplus1 = y;
                     if (xnplus1.getFitness() > fmax) {

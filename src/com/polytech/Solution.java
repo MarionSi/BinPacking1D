@@ -87,7 +87,6 @@ public class Solution {
                 Bin bin2 = toReturn.getListBin().get(indexBin2);
 
                 //Choose an item to switch in the first bin
-                System.out.println("Taille liste " + toReturn.getListBin().get(indexBin1).getListItems().size());
                 int indexItem1 = random.nextInt(toReturn.getListBin().get(indexBin1).getListItems().size());
                 Item item1 = bin1.getListItems().get(indexItem1);
 
@@ -264,7 +263,6 @@ public class Solution {
             binAddition = 0;
         }
 
-        System.out.println("Nouvelle fitness " + result);
         this.fitness = result;
     }
 

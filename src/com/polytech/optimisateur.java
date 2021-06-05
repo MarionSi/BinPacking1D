@@ -3,6 +3,7 @@ package com.polytech;
 import com.polytech.algorithm.FirstFitDecreasing;
 import com.polytech.algorithm.Question4.FirstFit;
 import com.polytech.algorithm.Question4.OneBinPerItem;
+import com.polytech.algorithm.RecuitSimule;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -61,6 +62,11 @@ public class optimisateur {
     public Solution generateSolutionFromFirstFitAlgorithm() {
         FirstFit firstFitAlgorithm = new FirstFit();
         return firstFitAlgorithm.generateSolution(getClonedListOfItems(), binSize);
+    }
+
+    public Solution generateSolutionFromRecuitSimule(double t0) throws CloneNotSupportedException {
+        RecuitSimule recuitSimule = new RecuitSimule(t0);
+        return recuitSimule.generateSolution(getClonedListOfItems(), binSize);
     }
 
     public void printDetails() {
