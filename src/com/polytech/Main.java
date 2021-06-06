@@ -7,6 +7,7 @@ import com.polytech.utils.Reader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Timer;
 
 public class Main {
 
@@ -21,25 +22,31 @@ public class Main {
 
     public static void main(String[] args) throws CloneNotSupportedException {
         fillFileList();
-        ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
-        Solution solution = programmationLineaire.generateSolution(null, -1);
+//        ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
+//        Solution solution = programmationLineaire.generateSolution(null, -1);
 
-        for (String file : Arrays.asList(fileName0)) {
+        for (String file : filesName) {
             optimisateur optimisateur = Reader.readFileAsOptimisateur(file);
             System.out.println(file);
+//            optimisateur.printItemsDetails();
+            optimisateur.generateSolutionFromProrammationLineaire();
+            System.out.println("\n");
 
-            System.out.println("BorneInf = " + optimisateur.getLowerBound());
-
-
-            System.out.println("----------------------- RECUIT SIMULE DECREASING -----------------------\n");
-            Solution meilleureSolution = optimisateur.generateSolutionFromRecuitSimule(0.6);
-
-            System.out.println("La meilleure solution c'est " + meilleureSolution.toString() + "\n");
+//            System.out.println("BorneInf = " + optimisateur.getLowerBound());
 
 
+//            System.out.println("----------------------- RECUIT SIMULE DECREASING -----------------------\n");
+//            Solution meilleureSolution = optimisateur.generateSolutionFromRecuitSimule(0.2);
+//
+//            System.out.println("La meilleure solution c'est " + meilleureSolution.toString() + "\n");
 
+
+//            long startTime = System.currentTimeMillis();
 //            Solution solutionFirstFitDecreasing = optimisateur.generateSolutionFromFirstFitDecreasingAlgorithm();
+//            long endTime = System.currentTimeMillis();
 //            System.out.println(solutionFirstFitDecreasing.toString() + "\n");
+//            System.out.println("Solution générée en " + Math.abs(startTime - endTime) + " ms!");
+
 //
 //            Solution solutionFromOneBinPerItem = optimisateur.generateSolutionFromOneBinPerItem();
 //            System.out.println(solutionFromOneBinPerItem.toString() + "\n");
@@ -73,11 +80,11 @@ public class Main {
              */
 
 
-            System.out.println("----------------------- TABU SEARCH -----------------------\n");
-
-            Solution solutionTabu = optimisateur.generateSolutionFromTabuSearchAlgorithm();
-            System.out.println("Fitness : " + solutionTabu.getFitness());
-            System.out.println(solutionTabu.toString() + "\n");
+//            System.out.println("----------------------- TABU SEARCH -----------------------\n");
+//
+//            Solution solutionTabu = optimisateur.generateSolutionFromTabuSearchAlgorithm();
+//            System.out.println("Fitness : " + solutionTabu.getFitness());
+//            System.out.println(solutionTabu.toString() + "\n");
             //System.out.println(solutionTabu.fullSolution() + "\n");
         }
     }

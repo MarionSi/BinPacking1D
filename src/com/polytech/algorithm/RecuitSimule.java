@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class RecuitSimule implements Algorithm {
 
-    private final int n1 = 10;
+    private final int n1 = 100;
     private final int n2 = 1000;
     private final double mu = 0.8;
 

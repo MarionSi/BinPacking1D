@@ -1,6 +1,8 @@
 package com.polytech;
 
+import com.polytech.Comparator.ItemComparator;
 import com.polytech.algorithm.FirstFitDecreasing;
+import com.polytech.algorithm.ProgrammationLineaire;
 import com.polytech.algorithm.Question4.FirstFit;
 import com.polytech.algorithm.Question4.OneBinPerItem;
 
@@ -11,10 +13,7 @@ import com.polytech.algorithm.Question7.TabuSearch;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -68,15 +67,19 @@ public class optimisateur {
         return firstFitAlgorithm.generateSolution(getClonedListOfItems(), binSize);
     }
 
+    public Solution generateSolutionFromProrammationLineaire() throws CloneNotSupportedException {
+        ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
+        return programmationLineaire.generateSolution(getClonedListOfItems(), binSize);
+    }
+
+    public Solution generateSolutionFromTabuSearchAlgorithm() throws CloneNotSupportedException {
+        TabuSearch tabuSearchAlgorithm = new TabuSearch();
+        return tabuSearchAlgorithm.generateSolution(listItems, binSize);
+    }
 
     public Solution generateSolutionFromRecuitSimule(double t0) throws CloneNotSupportedException {
         RecuitSimule recuitSimule = new RecuitSimule(t0);
         return recuitSimule.generateSolution(getClonedListOfItems(), binSize);
-    }
-    public Solution generateSolutionFromTabuSearchAlgorithm() throws CloneNotSupportedException {
-        TabuSearch tabuSearchAlgorithm = new TabuSearch();
-        return tabuSearchAlgorithm.generateSolution(listItems, binSize);
-
     }
 
     public void printDetails() {
@@ -101,6 +104,23 @@ public class optimisateur {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    public void printItemsDetails() {
+        System.out.println("Taille bin " + getBinSize());
+        System.out.println("Nb bin " + listItems.size());
+        double moyenne = listItems.stream().mapToInt(Item::getSize).average().getAsDouble();
+        System.out.println("Moyenne taille item " + moyenne);
+        LinkedList<Item> listItemsSorted = getClonedListOfItems();
+        Collections.sort(listItemsSorted, new ItemComparator());
+        System.out.println("Médiane taille item " + listItemsSorted.get(Math.round(listItemsSorted.size() / 2)).getSize());
+        double variance = 0;
+        for (Item item : listItems) {
+            variance += Math.pow(item.getSize() - moyenne, 2);
+        }
+        variance = (double) variance / (listItems.size());
+        System.out.println("Variance taille items " + variance);
+        System.out.println("Ecart-type :" + Math.sqrt(variance));
     }
 
     //region Getter & Setter
