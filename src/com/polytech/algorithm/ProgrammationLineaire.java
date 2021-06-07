@@ -66,23 +66,17 @@ public class ProgrammationLineaire implements Algorithm{
 
         // Check that the problem has an optimal solution.
         if (resultStatus == MPSolver.ResultStatus.OPTIMAL) {
-            System.out.println("Number of bins used: " + objective.value());
-            double totalWeight = 0;
             for (int j = 0; j < listItems.size(); ++j) {
                 if (y[j].solutionValue() == 1) {
                     Bin binUsed = new Bin(binSize);
-                    System.out.println("\nBin " + j + "\n");
                     for (int i = 0; i < listItems.size(); ++i) {
                         if (x[i][j].solutionValue() == 1) {
-                            System.out.println("Item " + i + " - weight: " + listItems.get(i).getSize());
                             binUsed.addItem(listItems.get(i));
                         }
                     }
                     toReturn.addBin(binUsed);
-//                    System.out.println("Packed bin weight: " + binWeight);
                 }
             }
-//            System.out.println("\nTotal packed weight: " + totalWeight);
         } else {
             System.err.println("The problem does not have an optimal solution.");
         }
@@ -90,13 +84,6 @@ public class ProgrammationLineaire implements Algorithm{
         return toReturn;
 
     }
-
-//    static class DataModel {
-//        public final double[] weights = {48, 30, 19, 36, 36, 27, 42, 42, 36, 24, 30};
-//        public final int numItems = weights.length;
-//        public final int numBins = weights.length;
-//        public final int binCapacity = 100;
-//    }
 
     public static void main(String[] args) throws Exception {
 
