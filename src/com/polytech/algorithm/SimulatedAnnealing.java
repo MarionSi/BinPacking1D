@@ -13,15 +13,17 @@ public class SimulatedAnnealing implements Algorithm {
     private final double mu = 0.8;
 
     private double t0;
+    private Solution x0;
 
-    public SimulatedAnnealing(double t0) {
+    public SimulatedAnnealing(double t0, Solution x0) {
         this.t0 = t0;
+        this.x0 = x0;
     }
 
     @Override
     public Solution generateSolution(LinkedList<Item> listItems, int binSize) throws CloneNotSupportedException {
 
-        Solution xmin = generateSolutionInitiale(listItems, binSize);
+        Solution xmin = x0;
         Integer fmax = xmin.updateFitnessAndGet();
         Double t = t0;
 

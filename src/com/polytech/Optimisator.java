@@ -104,8 +104,8 @@ public class Optimisator {
         return tabuSearchAlgorithm.generateSolution(listItems, binSize);
     }
 
-    public Solution generateSolutionFromSimulatedAnnealing(double t0) throws CloneNotSupportedException {
-        SimulatedAnnealing simulatedAnnealing = new SimulatedAnnealing(t0);
+    public Solution generateSolutionFromSimulatedAnnealing(double t0, Solution x0) throws CloneNotSupportedException {
+        SimulatedAnnealing simulatedAnnealing = new SimulatedAnnealing(t0, x0);
         return simulatedAnnealing.generateSolution(getClonedListOfItems(), binSize);
     }
 

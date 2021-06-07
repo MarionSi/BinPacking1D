@@ -258,7 +258,7 @@ public class Main {
                 System.out.println("Fichier " + filename);
                 System.out.println("----------------------- RECUIT SIMULE -----------------------\n");
 
-                Solution solutionSimulatedAnnealing = optimisator.generateSolutionFromSimulatedAnnealing(0.6);
+                Solution solutionSimulatedAnnealing = optimisator.generateSolutionFromSimulatedAnnealing(0.4, optimisator.generateSolutionFromOneBinPerItem());
                 System.out.println("Fitness : " + solutionSimulatedAnnealing.getFitness());
                 System.out.println(solutionSimulatedAnnealing.toString() + "\n");
             }
@@ -273,7 +273,7 @@ public class Main {
                 System.out.println("Fichier " + filename);
                 System.out.println("----------------------- RECUIT SIMULE -----------------------\n");
 
-                Solution solutionSimulatedAnnealing = optimisator.generateSolutionFromSimulatedAnnealing(0.6);
+                Solution solutionSimulatedAnnealing = optimisator.generateSolutionFromSimulatedAnnealing(0.4, optimisator.generateSolutionFromOneBinPerItem());
                 System.out.println("Fitness : " + solutionSimulatedAnnealing.getFitness());
                 System.out.println(solutionSimulatedAnnealing.toString() + "\n");
 
