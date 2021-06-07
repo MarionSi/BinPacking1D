@@ -22,7 +22,7 @@ public class ProgrammationLineaire implements Algorithm{
 
         // Create the linear solver with the SCIP backend.
         MPSolver solver = MPSolver.createSolver("SCIP");
-        solver.setTimeLimit(600000);
+        solver.setTimeLimit(300000);
 
 
         if (solver == null) {
