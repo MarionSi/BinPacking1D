@@ -1,16 +1,10 @@
-package com.polytech.algorithm.Question7;
+package com.polytech.algorithm;
 
-import com.polytech.Bin;
 import com.polytech.Item;
 import com.polytech.Solution;
 import com.polytech.algorithm.Algorithm;
-import com.polytech.algorithm.FirstFitDecreasing;
-import com.polytech.algorithm.Question4.FirstFit;
-import com.polytech.algorithm.Question4.OneBinPerItem;
-import com.polytech.optimisateur;
-import javafx.util.Pair;
+import com.polytech.algorithm.OneBinPerItem;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -20,11 +14,15 @@ public class TabuSearch implements Algorithm {
     private ArrayList<Solution> neighbourList;
     private Solution initialSolution;
     private int tabuListSize = 5;
-    private int maxIter = 1500;
-    private int maxVoisins = 100;
+    private int maxIter = 1000;
+    private int maxNeighbour = 50;
 
+    public TabuSearch(int tabuListSize_, int iterationNumber, int iterationNeighbour) {
+        this.tabuListSize = tabuListSize_;
+        this.maxIter = iterationNumber;
+        this.maxNeighbour = iterationNeighbour;
+    }
     public void init(LinkedList<Item> listItems, int binSize) {
-        // init first fit decreasing
         initialSolution = new OneBinPerItem().generateSolution(listItems, binSize);
         tabuList = new ArrayList<>();
         neighbourList = new ArrayList<>();
@@ -32,28 +30,24 @@ public class TabuSearch implements Algorithm {
 
     @Override
     public Solution generateSolution(LinkedList<Item> listItems, int binSize) throws CloneNotSupportedException {
-        System.out.println("-------START---------");
-
         init(listItems, binSize);
         Solution solutionInit = this.initialSolution;
         Solution solutionMin = solutionInit.clone();
         int fMin = solutionMin.updateFitnessAndGet();
 
-        System.out.println("INITIAL FITNESS : " + fMin);
-        System.out.println("INITIAL BINS : " + solutionMin.getNbBins());
+        Solution soutMin = solutionMin;
+        int soutFMin = fMin;
 
         Solution solution;
         int fSolution;
         int delta;
 
         for(int i = 0; i < maxIter; i++) {
-            //System.out.println("Itération : " + i);
             try {
                 Solution solution_x = solutionMin.clone();
                 generateNeighbours(solution_x);
                 solution = getBestNeighbour();
 
-                //solution = solution_x.getNeighbour();
                 solution.updateFitnessAndGet();
 
                 while(isSolutionInTabulist(solution)) {
@@ -78,14 +72,12 @@ public class TabuSearch implements Algorithm {
             }
 
         }
+        System.out.println("Fitness solution initiale : " + soutFMin);
+        System.out.println("Nb bins solution initiale : " + soutMin.getNbBins());
 
-        System.out.println("-------END---------" );
         return solutionMin;
     }
 
-    public void setTabuListSize(int tabuListSize) {
-        this.tabuListSize = tabuListSize;
-    }
 
     public boolean isSolutionInTabulist(Solution solution) {
         boolean toReturn = false;
@@ -111,7 +103,7 @@ public class TabuSearch implements Algorithm {
     }
 
     public void generateNeighbours(Solution solution) {
-        for (int j = 0; j < maxVoisins; j++) {
+        for (int j = 0; j < maxNeighbour; j++) {
             neighbourList.add(solution.getNeighbour());
         }
     }

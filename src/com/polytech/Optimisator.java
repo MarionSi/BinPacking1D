@@ -2,13 +2,13 @@ package com.polytech;
 
 import com.polytech.Comparator.ItemComparator;
 import com.polytech.algorithm.FirstFitDecreasing;
-import com.polytech.algorithm.ProgrammationLineaire;
-import com.polytech.algorithm.Question4.FirstFit;
-import com.polytech.algorithm.Question4.OneBinPerItem;
+import com.polytech.algorithm.LinearProgramming;
+import com.polytech.algorithm.FirstFit;
+import com.polytech.algorithm.OneBinPerItem;
 
-import com.polytech.algorithm.RecuitSimule;
+import com.polytech.algorithm.SimulatedAnnealing;
 
-import com.polytech.algorithm.Question7.TabuSearch;
+import com.polytech.algorithm.TabuSearch;
 
 
 import java.io.FileWriter;
@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 
-public class optimisateur {
+public class Optimisator {
 
     private int binSize = 150;
 
     private LinkedList<Item> listItems;
 
-    public optimisateur() {
+    public Optimisator() {
         listItems = new LinkedList<>();
     }
 
-    public optimisateur(int binSize) {
+    public Optimisator(int binSize) {
         listItems = new LinkedList<>();
         this.binSize = binSize;
     }
@@ -67,10 +67,10 @@ public class optimisateur {
         return firstFitAlgorithm.generateSolution(getClonedListOfItems(), binSize);
     }
 
-    public Solution generateSolutionFromProrammationLineaire() throws CloneNotSupportedException {
-        ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
+    public Solution generateSolutionFromLinearProgramming() throws CloneNotSupportedException {
+        LinearProgramming linearProgramming = new LinearProgramming();
         long startTime = System.currentTimeMillis();
-        Solution solution = programmationLineaire.generateSolution(getClonedListOfItems(), binSize);
+        Solution solution = linearProgramming.generateSolution(getClonedListOfItems(), binSize);
         long endTime = System.currentTimeMillis();
         System.out.println("Temps d'execution " + Math.abs(endTime - startTime));
         return solution;
@@ -78,13 +78,13 @@ public class optimisateur {
 
     public void getSolutionFromPLUntilSolutionIsFound() throws CloneNotSupportedException {
 
-        ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
+        LinearProgramming linearProgramming = new LinearProgramming();
         LinkedList<Item> listcloned = getClonedListOfItems();
         long time;
 
         do {
             long startTime = System.currentTimeMillis();
-            Solution solution = programmationLineaire.generateSolution(listcloned, binSize);
+            Solution solution = linearProgramming.generateSolution(listcloned, binSize);
             long endTime = System.currentTimeMillis();
             time = endTime - startTime;
 
@@ -99,14 +99,14 @@ public class optimisateur {
 
     }
 
-    public Solution generateSolutionFromTabuSearchAlgorithm() throws CloneNotSupportedException {
-        TabuSearch tabuSearchAlgorithm = new TabuSearch();
+    public Solution generateSolutionFromTabuSearchAlgorithm(int tabuListSize_, int iterationNumber, int iterationNeighbour) throws CloneNotSupportedException {
+        TabuSearch tabuSearchAlgorithm = new TabuSearch(tabuListSize_, iterationNumber, iterationNeighbour);
         return tabuSearchAlgorithm.generateSolution(listItems, binSize);
     }
 
-    public Solution generateSolutionFromRecuitSimule(double t0) throws CloneNotSupportedException {
-        RecuitSimule recuitSimule = new RecuitSimule(t0);
-        return recuitSimule.generateSolution(getClonedListOfItems(), binSize);
+    public Solution generateSolutionFromSimulatedAnnealing(double t0) throws CloneNotSupportedException {
+        SimulatedAnnealing simulatedAnnealing = new SimulatedAnnealing(t0);
+        return simulatedAnnealing.generateSolution(getClonedListOfItems(), binSize);
     }
 
     public void printDetails() {
