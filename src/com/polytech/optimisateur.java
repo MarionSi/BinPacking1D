@@ -69,7 +69,34 @@ public class optimisateur {
 
     public Solution generateSolutionFromProrammationLineaire() throws CloneNotSupportedException {
         ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
-        return programmationLineaire.generateSolution(getClonedListOfItems(), binSize);
+        long startTime = System.currentTimeMillis();
+        Solution solution = programmationLineaire.generateSolution(getClonedListOfItems(), binSize);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Temps d'execution " + Math.abs(endTime - startTime));
+        return solution;
+    }
+
+    public void getSolutionFromPLUntilSolutionIsFound() throws CloneNotSupportedException {
+
+        ProgrammationLineaire programmationLineaire = new ProgrammationLineaire();
+        LinkedList<Item> listcloned = getClonedListOfItems();
+        long time;
+
+        do {
+            long startTime = System.currentTimeMillis();
+            Solution solution = programmationLineaire.generateSolution(listcloned, binSize);
+            long endTime = System.currentTimeMillis();
+            time = endTime - startTime;
+
+            if (time < 600000) {
+                System.out.println("Pour " + listcloned.size() + " items, il aura fallut " + time + "ms pour trouver une solution optimale");
+                listcloned.addAll(getClonedListOfItems(listcloned));
+            } else {
+                System.out.println("Pour " + listcloned.size() + " items, il faut plus de 10min pour trouver une solution optimale");
+            }
+
+        } while (time < 600000);
+
     }
 
     public Solution generateSolutionFromTabuSearchAlgorithm() throws CloneNotSupportedException {
@@ -137,6 +164,16 @@ public class optimisateur {
         LinkedList<Item> toReturn = new LinkedList<>();
         try {
             for (Item item : listItems) toReturn.add(item.clone());
+        } catch (Exception ex) {
+            System.err.println(ex.getStackTrace());
+        }
+        return toReturn;
+    }
+
+    public LinkedList<Item> getClonedListOfItems(LinkedList<Item> listToClone) {
+        LinkedList<Item> toReturn = new LinkedList<>();
+        try {
+            for (Item item : listToClone) toReturn.add(item.clone());
         } catch (Exception ex) {
             System.err.println(ex.getStackTrace());
         }
