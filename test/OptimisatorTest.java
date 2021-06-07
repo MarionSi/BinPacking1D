@@ -1,4 +1,4 @@
-import com.polytech.optimisateur;
+import com.polytech.Optimisator;
 import com.polytech.Item;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class optimisateurTest {
+class OptimisatorTest {
 
-    private optimisateur optimisateur;
+    private Optimisator optimisator;
 
     @BeforeEach
     public void init() {
-        optimisateur = new optimisateur();
+        optimisator = new Optimisator();
     }
 
     @Nested
@@ -24,7 +24,7 @@ class optimisateurTest {
             //Given
 
             //When
-            int result = optimisateur.getLowerBound();
+            int result = optimisator.getLowerBound();
 
             //Then
             assertEquals(result, 0);
@@ -36,11 +36,11 @@ class optimisateurTest {
             int binSize = 2;
             Item item = new Item(1);
 
-            optimisateur.setBinSize(binSize);
-            optimisateur.addItem(item);
+            optimisator.setBinSize(binSize);
+            optimisator.addItem(item);
 
             //When
-            int result = optimisateur.getLowerBound();
+            int result = optimisator.getLowerBound();
 
             //Then
             assertEquals(result, 1);
@@ -52,11 +52,11 @@ class optimisateurTest {
             int binSize = 2;
             Item item = new Item(2);
 
-            optimisateur.setBinSize(binSize);
-            optimisateur.addItem(item);
+            optimisator.setBinSize(binSize);
+            optimisator.addItem(item);
 
             //When
-            int result = optimisateur.getLowerBound();
+            int result = optimisator.getLowerBound();
 
             //Then
             assertEquals(result, 1);
@@ -68,11 +68,11 @@ class optimisateurTest {
             int binSize = 2;
             Item item = new Item(3);
 
-            optimisateur.setBinSize(binSize);
-            optimisateur.addItem(item);
+            optimisator.setBinSize(binSize);
+            optimisator.addItem(item);
 
             //When
-            int result = optimisateur.getLowerBound();
+            int result = optimisator.getLowerBound();
 
             //Then
             assertEquals(result, 2);

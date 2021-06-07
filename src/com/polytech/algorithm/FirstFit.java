@@ -1,14 +1,16 @@
-package com.polytech.algorithm.Question4;
+package com.polytech.algorithm;
 
 import com.polytech.Bin;
+import com.polytech.Comparator.ItemComparator;
 import com.polytech.Item;
 import com.polytech.Solution;
 import com.polytech.algorithm.Algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
-public class OneBinPerItem implements Algorithm {
+public class FirstFit implements Algorithm {
     @Override
     public Solution generateSolution(LinkedList<Item> listItems, int binSize) {
 
@@ -22,15 +24,27 @@ public class OneBinPerItem implements Algorithm {
             return null;
         }
 
+        //Randomize items in the list
         LinkedList<Item> listItemsSorted = (LinkedList<Item>) listItems.clone();
+        Collections.shuffle(listItemsSorted);
+
         ArrayList<Bin> listBins = new ArrayList<>();
 
-        // Create a bin per item and put the item in it
-        for (Item item : listItemsSorted
-             ) {
-            Bin newBin = new Bin(binSize);
-            listBins.add(newBin);
-            newBin.addItem(item);
+
+        for (Item item : listItemsSorted)
+        {
+            //Test if the item can be placed in an existing bins
+            for (Bin bin : listBins)
+            {
+                if (bin.addItem(item)) break;
+            }
+
+            //Otherwise, create one and put the item in it
+            if (!item.isPlaced()){
+                Bin newBin = new Bin(binSize);
+                listBins.add(newBin);
+                newBin.addItem(item);
+            }
         }
 
         return new Solution(listBins);

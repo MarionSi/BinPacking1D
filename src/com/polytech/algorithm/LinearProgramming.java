@@ -11,7 +11,7 @@ import com.polytech.Solution;
 import java.util.LinkedList;
 
 
-public class ProgrammationLineaire implements Algorithm{
+public class LinearProgramming implements Algorithm{
 
     @Override
     public Solution generateSolution(LinkedList<Item> listItems, int binSize) throws CloneNotSupportedException {
@@ -98,5 +98,5 @@ public class ProgrammationLineaire implements Algorithm{
 
 
     }
-    public ProgrammationLineaire() {}
+    public LinearProgramming() {}
 }

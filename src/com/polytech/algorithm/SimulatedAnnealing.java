@@ -2,12 +2,11 @@ package com.polytech.algorithm;
 
 import com.polytech.Item;
 import com.polytech.Solution;
-import com.polytech.algorithm.Question4.OneBinPerItem;
 
 import java.util.LinkedList;
 import java.util.Random;
 
-public class RecuitSimule implements Algorithm {
+public class SimulatedAnnealing implements Algorithm {
 
     private final int n1 = 100;
     private final int n2 = 1000;
@@ -15,7 +14,7 @@ public class RecuitSimule implements Algorithm {
 
     private double t0;
 
-    public RecuitSimule(double t0) {
+    public SimulatedAnnealing(double t0) {
         this.t0 = t0;
     }
 

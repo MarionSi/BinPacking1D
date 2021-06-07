@@ -1,12 +1,8 @@
 package algorithm;
 
-import com.polytech.Solution;
-import com.polytech.algorithm.ProgrammationLineaire;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class ProgrammationLineaireTest {
+class LinearProgrammingTest {
 
     static {
         System.loadLibrary("jniortools");
