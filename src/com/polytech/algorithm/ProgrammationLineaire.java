@@ -4,6 +4,7 @@ import com.google.ortools.linearsolver.MPConstraint;
 import com.google.ortools.linearsolver.MPObjective;
 import com.google.ortools.linearsolver.MPSolver;
 import com.google.ortools.linearsolver.MPVariable;
+import com.polytech.Bin;
 import com.polytech.Item;
 import com.polytech.Solution;
 
@@ -14,10 +15,14 @@ public class ProgrammationLineaire implements Algorithm{
 
     @Override
     public Solution generateSolution(LinkedList<Item> listItems, int binSize) throws CloneNotSupportedException {
+
+        Solution toReturn = new Solution();
+
         Loader.loadNativeLibraries();
 
         // Create the linear solver with the SCIP backend.
         MPSolver solver = MPSolver.createSolver("SCIP");
+
         if (solver == null) {
             System.out.println("Could not create solver SCIP");
             return null;
@@ -65,24 +70,24 @@ public class ProgrammationLineaire implements Algorithm{
             double totalWeight = 0;
             for (int j = 0; j < listItems.size(); ++j) {
                 if (y[j].solutionValue() == 1) {
+                    Bin binUsed = new Bin(binSize);
                     System.out.println("\nBin " + j + "\n");
-                    double binWeight = 0;
                     for (int i = 0; i < listItems.size(); ++i) {
                         if (x[i][j].solutionValue() == 1) {
                             System.out.println("Item " + i + " - weight: " + listItems.get(i).getSize());
-                            binWeight += listItems.get(i).getSize();
+                            binUsed.addItem(listItems.get(i));
                         }
                     }
-                    System.out.println("Packed bin weight: " + binWeight);
-                    totalWeight += binWeight;
+                    toReturn.addBin(binUsed);
+//                    System.out.println("Packed bin weight: " + binWeight);
                 }
             }
-            System.out.println("\nTotal packed weight: " + totalWeight);
+//            System.out.println("\nTotal packed weight: " + totalWeight);
         } else {
             System.err.println("The problem does not have an optimal solution.");
         }
 
-        return null;
+        return toReturn;
 
     }
 
